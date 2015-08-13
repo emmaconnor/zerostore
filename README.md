@@ -1,11 +1,12 @@
 # zerostore
 
-A password storage system that uses no storage whatsoever.
+Password storage, without the storage.
 
-Disclaimer: This is a **proof-of-concept** for educational purposes only. It has not been audited by a cryptography expert and so it should not be used for any real accounts.
+Disclaimer: This is a proof-of-concept. I'm not a cryptography expert, and I only made this for fun and education.
+
 ## Goals
 
-The goal of this project is to serve as a proof-of-concept for a zero-storage password management system. This means that all the information needed to generate a secure, unique, per-site password can be kept in a user's head. In this way, users can eliminate password reuse without having to memorize multiple passwords or synch password databases between devices.
+The goal of this project is to serve as a proof-of-concept for a zero-storage password management system. This means that all the information needed to generate a secure, unique, per-site password can be kept in a user's head. In this way, users can eliminate password reuse without having to memorize multiple passwords or synch password databases between devices. A user should be able to go on any device with this program and have access to all of their passwords without having to import any data.
 
 ## Design
 
