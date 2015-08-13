@@ -10,7 +10,7 @@ The goal of this project is to serve as a proof-of-concept for a zero-storage pa
 
 ## Design
 
-Per-site passwords are generated based on a unique user ID and a master password. 
+Per-site passwords are generated based on an acount ID and a master password. The account ID should be a unique identifier for each account. For example, a combination of username and the domain on which it is used.
 
 1) A master key is derived using scrypt, with the master password as the password and a constant+user ID as the salt. This is intended to increase the difficulty of brute-force attacks by deliberately increasing memory usage and processing time. Ideally, a random salt would be used, but this would be incompatible with the zero-storage design goal. Instead, the user ID is used as a salt which still prevents a pre-computed table of scrypt values being used across different users or domains.
 
