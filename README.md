@@ -16,5 +16,4 @@ Per-site passwords are generated based on an acount ID and a master password. Th
 
 2. The master key is used as the key for a SHA256-HMAC of the user ID. This ensures that generated passwords should have no detectable relationship with each other, and cannot be computed without knowing the master key.
 
-3. The first 16 bytes of the HMAC are then base64-encoded and used as the per-site password. This is designed to be compatible with as many sites' password requirements as possible. In the future options may be available for tailoring output to specific length and character-set requirements.
-
+3. The HMAC is then base64-encoded, truncated to given length, and used as the per-site password. This is designed to be compatible with as many sites' password requirements as possible. 
