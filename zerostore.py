@@ -8,36 +8,39 @@ import pyperclip
 import scrypt
 import sys
 import time
-import string
 
-printable = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-=_+[]{}'
 
-parser = argparse.ArgumentParser(description='Generate secure, unique passwords based on a master password.')
-
-parser.add_argument('-n', '--len', dest='n', default=24, type=int,
-    help='The length of the password to generate. Defaults to 24, maximum 32')
-
-parser.add_argument('-c', '--charset', dest='charset', default=printable,
-    help='The character set to use when generating the password. Defaults to all printable characters.')
-
-args = parser.parse_args()
-
-def gen_password(master_pw, user_id):
+def gen_password(master_pw, user_id, n):
     hmac_key = scrypt.hash(master_pw, 'zerostore-salt'+user_id, N=16384, r=8, p=1, buflen=64)
     digest = hmac.HMAC(hmac_key, user_id, hashlib.sha256).digest()
-    return ''.join(args.charset[ord(c) % len(args.charset)] for c in digest[:args.n])
+    return base64.b64encode(digest)[:n]
 
-if args.n > 32:
-    print 'Sorry, passwords with a length greater than 32 are not currently supported.'
-    sys.exit(1)
 
-entropy = args.n  *math.log(len(args.charset), 2) 
+def main():
+    parser = argparse.ArgumentParser(description='Generate secure, unique passwords based on a master password.')
 
-print 'Generating password with %s bits of entropy' % entropy
+    parser.add_argument('-n', '--len', dest='n', default=24, type=int,
+        help='The length of the password to generate. Defaults to 24, maximum 44')
 
-user_id = raw_input('user id: ')
-master_pw = getpass.getpass('password: ')
+    args = parser.parse_args()
 
-pw = gen_password(master_pw, user_id)
+    if args.n > 44:
+        print 'Sorry, passwords with a length greater than 32 are not currently supported.'
+        sys.exit(1)
 
-print pw
+    user_id = raw_input('account id: ')
+    master_pw = getpass.getpass('password: ')
+
+    pw = gen_password(master_pw, user_id, args.n)
+
+    pyperclip.copy(pw)
+    print 'Password copied to clipboard'
+
+    time.sleep(10)
+
+    pyperclip.copy('[cleared]')
+    print 'Clipboard cleared'
+
+
+if __name__ == '__main__':
+    main()
