@@ -19,6 +19,9 @@ def gen_password(master_pw, user_id, n):
 def main():
     parser = argparse.ArgumentParser(description='Generate secure, unique passwords based on a master password.')
 
+    parser.add_argument('-c', '--confirm', dest='confirm', default=False, action='store_true',
+        help='Require a confirmation of the master password.')
+
     parser.add_argument('-n', '--len', dest='n', default=24, type=int,
         help='The length of the password to generate. Defaults to 24, maximum 44')
 
@@ -30,6 +33,12 @@ def main():
 
     user_id = raw_input('account id: ')
     master_pw = getpass.getpass('password: ')
+
+    if args.confirm:
+        confirm_pw = getpass.getpass('confirm: ')
+        if confirm_pw != master_pw:
+            print 'Confirm failed.'
+            sys.exit(1)
 
     pw = gen_password(master_pw, user_id, args.n)
 
