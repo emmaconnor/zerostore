@@ -8,8 +8,9 @@ import pyperclip
 import scrypt
 import sys
 import time
+import string
 
-from string import printable
+printable = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-=_+[]{}'
 
 parser = argparse.ArgumentParser(description='Generate secure, unique passwords based on a master password.')
 
