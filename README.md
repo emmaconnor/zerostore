@@ -2,7 +2,7 @@
 
 Password storage, without the storage.
 
-Disclaimer: This is a proof-of-concept. I'm not a cryptography expert, and I only made this for fun and education.
+Disclaimer: This is a proof-of-concept. I'm a cryptography intermediate, and I only made this for fun and education.
 
 ## Goals
 
